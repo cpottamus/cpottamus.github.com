@@ -209,3 +209,16 @@ h1 {
     animation:fade 3000ms infinite;
     -webkit-animation:fade 3000ms infinite;
 }
+
+.content .ui-icon-searchfield::after{
+        display:none !important;
+}
+    
+.content .ui-input-search{
+        padding:0 10px !important;
+}
+
+.ui-content {
+    padding: 5px !important;
+}
+    
