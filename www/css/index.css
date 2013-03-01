@@ -32,7 +32,7 @@ body {
         linear,
         left top,
         left bottom,
-        color-stop(0, #A7A7A7),
+        color-stop(0, #A5A5A5),
         color-stop(0.51, #E4E4E4)
     );
     background-attachment:fixed;
@@ -79,6 +79,7 @@ body {
     height: 100%;
     position: absolute;
     bottom: 0%;
+    right: 0%;
 }
 
 body #page #filterParking{
@@ -93,6 +94,7 @@ body #page #filterParking{
     );
     top: 44%;
     position: absolute;
+    right: 90%;
       
 }
 
@@ -122,6 +124,7 @@ body #page #filterTime{
     );
     top: 44%;
     position: absolute;
+    right: 0%;
     
 }
 

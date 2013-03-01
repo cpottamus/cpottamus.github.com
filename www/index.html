@@ -80,7 +80,7 @@
 
 
     <div data-role="content" class="content">    
-        <input type="search" name="search" id="searc-basic" value="" />        
+        <input type="search" name="search" id="search-basic" value="" />        
     </div><!-- /content -->
 
 	<!-- Search bar functionality -->
@@ -243,6 +243,26 @@
 			$('#filterTime').animate({'left' : '90%'}, 400);
 
 	
+		});
+		
+		
+		//Change search Screen
+		//if($('.ui-input-search ui-shadow-inset ui-btn-corner-all ui-btn-shadow ui-icon-searchfield ui-body-c ui-focus')[0]){
+		$(document).ready(function(){
+		$('#search-basic').focus(function()
+		{
+			$('#backgroundMain').animate({'right' : '+=100%'}, 'slow');
+			$('#filterParking').animate({'left' : '-=100%'}, 'slow');
+			$('#filterTime').animate({'left' : '-=100%'}, 'slow');
+			$('#parkingBar').animate({'right' : '+=100%'}, 'slow');
+		});	
+		$('#search-basic').focusout(function()
+		{
+			$('#backgroundMain').animate({'right' : '-=100%'}, 'slow');
+			$('#filterParking').animate({'left' : '+=100%'}, 'slow');
+			$('#filterTime').animate({'left' : '+=100%'}, 'slow');
+			$('#parkingBar').animate({'right' : '-=100%'}, 'slow');
+		});
 		});
 		
 		
