@@ -16,10 +16,6 @@
 		
 	<!-- Make your Background here and use jquery to change 'img source' with each filter
 	
-	$('#my_image').on({
-    'click': function(){
-        $('#my_image').attr('src','second.jpg');
-    }
 });-->
 	<img src='img/emptyMap.png' id='backgroundMain'>
 	
@@ -27,12 +23,14 @@
 	<!-- make the filter parking div and style it-->
 	<div id="filterParking">
 		<div id="returnFilter"></div>
+		
+		
 	<!-- Make the images for the buttons for filter list, have jquery change the image source when clicked, change the jquery image source with it-->
 	
-	<!-- <img src='img/filterButtonFree.png' id='filterButton'>
-	<img src='img/filterButton2h.png' id='filterButton'>
-	<img src='img/filterButtonMeter.png' id='filterButton'>
-	<img src='img/filterButtonPaid.png' id='filterButton'>-->
+	<img src='img/filterButtonFree.png' id='filterButtonFree'>
+	<img src='img/filterButton2h.png' id='filterButton2h'>
+	<img src='img/filterButtonMeter.png' id='filterButtonMeter'>
+	<img src='img/filterButtonPaid.png' id='filterButtonPaid'>
 	
 	</div>
 	
@@ -154,6 +152,13 @@
 				filterClicked = 1;
 				$('#filterParking').animate({'left' : '-40%'}, 200, function(){
 				$('#filterParking').css(cssObj2)});
+				
+				$('#filterButtonFree').animate({'width' : '96%'}, 200);
+				$('#filterButton2h').animate({'width' : '96%'}, 200);
+				$('#filterButtonMeter').animate({'width' : '96%'}, 200);
+				$('#filterButtonPaid').animate({'width' : '96%'}, 200);
+				//$('#filterButtonMeter')
+				
 				$('#filterParking').animate({'left' : '0%'}, 400);
 				cssObj2 = {
 					'width' : '40%',
@@ -161,12 +166,10 @@
 					'top' : '30%'
 					};
 				cssObj3 = {
-					'width' : '10%',
+					'width' : '4%',
 					'height' : '100%',
 				}
 				$('#returnFilter').delay(200).fadeIn(200, function(){ $('#returnFilter').css(cssObj3)});
-				
-				//Here is where we show the images
 			}
 		});
 		
@@ -189,7 +192,12 @@
 			filterClicked = 0;
 			$('#returnFilter').fadeOut(200, function(){ $('#returnFilter').css(cssObj5)});
 			$('#filterParking').animate({'left' : '-40%'}, 200, function(){
-			$('#filterParking').css(cssObj4)});
+				$('#filterButtonFree').animate({'width' : '0%'}, 400);
+				$('#filterButton2h').animate({'width' : '0%'}, 400);
+				$('#filterButtonMeter').animate({'width' : '0%'}, 400);
+				$('#filterButtonPaid').animate({'width' : '0%'}, 400);
+				$('#filterParking').css(cssObj4)});
+			
 			$('#filterParking').animate({'left' : '0%'}, 400);
 
 	
@@ -249,7 +257,7 @@
 		//Change search Screen
 		//if($('.ui-input-search ui-shadow-inset ui-btn-corner-all ui-btn-shadow ui-icon-searchfield ui-body-c ui-focus')[0]){
 		$(document).ready(function(){
-		$('#search-basic').focus(function()
+		$('#search-basic').focusin(function()
 		{
 			$('#backgroundMain').animate({'right' : '+=100%'}, 'slow');
 			$('#filterParking').animate({'left' : '-=100%'}, 'slow');
@@ -263,6 +271,354 @@
 			$('#filterTime').animate({'left' : '+=100%'}, 'slow');
 			$('#parkingBar').animate({'right' : '-=100%'}, 'slow');
 		});
+		});
+		
+		
+		//Map Changing with clicks.
+		//var states
+		var freeOn = 0,
+		twoHOn = 0,
+		meterOn = 0,
+		paidOn = 0;
+		
+		//Free clicked
+		$('#filterButtonFree').click(function(){
+			//emptyMap
+			if(twoHOn == 0 && meterOn == 0 && paidOn == 0 && freeOn == 0){
+				$('#backgroundMain').attr('src','img/F.png');
+				freeOn =1;
+			}
+			//F
+			else if(twoHOn == 0 && meterOn == 0 && paidOn == 0 && freeOn == 1){
+				$('#backgroundMain').attr('src','img/emptyMap.png');
+				freeOn =0;
+			}
+			//P
+			else if(twoHOn == 0 && meterOn == 0 && paidOn == 1 && freeOn == 0){
+				$('#backgroundMain').attr('src','img/PF.png');
+				freeOn =1;
+			}
+			//PF
+			else if(twoHOn == 0 && meterOn == 0 && paidOn == 1 && freeOn == 1){
+				$('#backgroundMain').attr('src','img/P.png');
+				freeOn =0;
+			}
+			//M
+			else if(twoHOn == 0 && meterOn == 1 && paidOn == 0 && freeOn == 0){
+				$('#backgroundMain').attr('src','img/MF.png');
+				freeOn =1;
+			}
+			//MF
+			else if(twoHOn == 0 && meterOn == 1 && paidOn == 0 && freeOn == 1){
+				$('#backgroundMain').attr('src','img/M.png');
+				freeOn =0;
+			}
+			//MP
+			else if(twoHOn == 0 && meterOn == 1 && paidOn == 1 && freeOn == 0){
+				$('#backgroundMain').attr('src','img/MPF.png');
+				freeOn =1;
+			}
+			//MPF
+			else if(twoHOn == 0 && meterOn == 1 && paidOn == 1 && freeOn == 1){
+				$('#backgroundMain').attr('src','img/MP.png');
+				freeOn =0;
+			}
+			//2
+			else if(twoHOn == 1 && meterOn == 0 && paidOn == 0 && freeOn == 0){
+				$('#backgroundMain').attr('src','img/2F.png');
+				freeOn =1;
+			}
+			//2F
+			else if(twoHOn == 1 && meterOn == 0 && paidOn == 0 && freeOn == 1){
+				$('#backgroundMain').attr('src','img/2.png');
+				freeOn =0;
+			}
+			//2P
+			else if(twoHOn == 1 && meterOn == 0 && paidOn == 1 && freeOn == 0){
+				$('#backgroundMain').attr('src','img/2PF.png');
+				freeOn =1;
+			}
+			//2PF
+			else if(twoHOn == 1 && meterOn == 0 && paidOn == 1 && freeOn == 1){
+				$('#backgroundMain').attr('src','img/2P.png');
+				freeOn =0;
+			}
+			//2M
+			else if(twoHOn == 1 && meterOn == 1 && paidOn == 0 && freeOn == 0){
+				$('#backgroundMain').attr('src','img/2MF.png');
+				freeOn =1;
+			}
+			//2MF
+			else if(twoHOn == 1 && meterOn == 1 && paidOn == 0 && freeOn == 1){
+				$('#backgroundMain').attr('src','img/2M.png');
+				freeOn = 0;
+			}
+			//2MP
+			else if(twoHOn == 1 && meterOn == 1 && paidOn == 1 && freeOn == 0){
+				$('#backgroundMain').attr('src','img/2MPF.png');
+				freeOn =1;
+			}
+			//2MPF
+			else if(twoHOn == 1 && meterOn == 1 && paidOn == 1 && freeOn == 1){
+				$('#backgroundMain').attr('src','img/2MP.png');
+				freeOn =0;
+			}
+			
+		});
+		
+		//2h clicked
+		$('#filterButton2h').click(function(){
+			//emptyMap
+			if(twoHOn == 0 && meterOn == 0 && paidOn == 0 && freeOn == 0){
+				$('#backgroundMain').attr('src','img/2.png');
+				twoHOn = 1;
+			}
+			//F
+			else if(twoHOn == 0 && meterOn == 0 && paidOn == 0 && freeOn == 1){
+				$('#backgroundMain').attr('src','img/2F.png');
+				twoHOn = 1;
+			}
+			//P
+			else if(twoHOn == 0 && meterOn == 0 && paidOn == 1 && freeOn == 0){
+				$('#backgroundMain').attr('src','img/2P.png');
+				twoHOn = 1;
+			}
+			//PF
+			else if(twoHOn == 0 && meterOn == 0 && paidOn == 1 && freeOn == 1){
+				$('#backgroundMain').attr('src','img/2PF.png');
+				twoHOn = 1;
+			}
+			//M
+			else if(twoHOn == 0 && meterOn == 1 && paidOn == 0 && freeOn == 0){
+				$('#backgroundMain').attr('src','img/2M.png');
+				twoHOn = 1;
+			}
+			//MF
+			else if(twoHOn == 0 && meterOn == 1 && paidOn == 0 && freeOn == 1){
+				$('#backgroundMain').attr('src','img/2MF.png');
+				twoHOn = 1;
+			}
+			//MP
+			else if(twoHOn == 0 && meterOn == 1 && paidOn == 1 && freeOn == 0){
+				$('#backgroundMain').attr('src','img/2MP.png');
+				twoHOn = 1;
+			}
+			//MPF
+			else if(twoHOn == 0 && meterOn == 1 && paidOn == 1 && freeOn == 1){
+				$('#backgroundMain').attr('src','img/2MPF.png');
+				twoHOn = 1;
+			}
+			//2
+			else if(twoHOn == 1 && meterOn == 0 && paidOn == 0 && freeOn == 0){
+				$('#backgroundMain').attr('src','img/emptyMap.png');
+				twoHOn = 0;
+			}
+			//2F
+			else if(twoHOn == 1 && meterOn == 0 && paidOn == 0 && freeOn == 1){
+				$('#backgroundMain').attr('src','img/F.png');
+				twoHOn = 0;
+			}
+			//2P
+			else if(twoHOn == 1 && meterOn == 0 && paidOn == 1 && freeOn == 0){
+				$('#backgroundMain').attr('src','img/P.png');
+				twoHOn = 0;
+			}
+			//2PF
+			else if(twoHOn == 1 && meterOn == 0 && paidOn == 1 && freeOn == 1){
+				$('#backgroundMain').attr('src','img/PF.png');
+				twoHOn = 0;
+			}
+			//2M
+			else if(twoHOn == 1 && meterOn == 1 && paidOn == 0 && freeOn == 0){
+				$('#backgroundMain').attr('src','img/M.png');
+				twoHOn = 0;
+			}
+			//2MF
+			else if(twoHOn == 1 && meterOn == 1 && paidOn == 0 && freeOn == 1){
+				$('#backgroundMain').attr('src','img/MF.png');
+				twoHOn = 0;
+			}
+			//2MP
+			else if(twoHOn == 1 && meterOn == 1 && paidOn == 1 && freeOn == 0){
+				$('#backgroundMain').attr('src','img/MP.png');
+				twoHOn = 0;
+			}
+			//2MPF
+			else if(twoHOn == 1 && meterOn == 1 && paidOn == 1 && freeOn == 1){
+				$('#backgroundMain').attr('src','img/MPF.png');
+				twoHOn = 0;
+			}
+		});
+		
+		//Meter clicked
+		$('#filterButtonMeter').click(function(){
+			//emptyMap
+			if(twoHOn == 0 && meterOn == 0 && paidOn == 0 && freeOn == 0){
+				$('#backgroundMain').attr('src','img/M.png');
+				meterOn = 1;
+			}
+			//F
+			else if(twoHOn == 0 && meterOn == 0 && paidOn == 0 && freeOn == 1){
+				$('#backgroundMain').attr('src','img/MF.png');
+				meterOn = 1;
+			}
+			//P
+			else if(twoHOn == 0 && meterOn == 0 && paidOn == 1 && freeOn == 0){
+				$('#backgroundMain').attr('src','img/MP.png');
+				meterOn = 1;
+			}
+			//PF
+			else if(twoHOn == 0 && meterOn == 0 && paidOn == 1 && freeOn == 1){
+				$('#backgroundMain').attr('src','img/MPF.png');
+				meterOn = 1;
+			}
+			//M
+			else if(twoHOn == 0 && meterOn == 1 && paidOn == 0 && freeOn == 0){
+				$('#backgroundMain').attr('src','img/emptyMap.png');
+				meterOn = 0;
+			}
+			//MF
+			else if(twoHOn == 0 && meterOn == 1 && paidOn == 0 && freeOn == 1){
+				$('#backgroundMain').attr('src','img/F.png');
+				meterOn = 0;
+			}
+			//MP
+			else if(twoHOn == 0 && meterOn == 1 && paidOn == 1 && freeOn == 0){
+				$('#backgroundMain').attr('src','img/P.png');
+				meterOn = 0;
+			}
+			//MPF
+			else if(twoHOn == 0 && meterOn == 1 && paidOn == 1 && freeOn == 1){
+				$('#backgroundMain').attr('src','img/PF.png');
+				meterOn = 0;
+			}
+			//2
+			else if(twoHOn == 1 && meterOn == 0 && paidOn == 0 && freeOn == 0){
+				$('#backgroundMain').attr('src','img/2M.png');
+				meterOn = 1;
+			}
+			//2F
+			else if(twoHOn == 1 && meterOn == 0 && paidOn == 0 && freeOn == 1){
+				$('#backgroundMain').attr('src','img/2MF.png');
+				meterOn = 1;
+			}
+			//2P
+			else if(twoHOn == 1 && meterOn == 0 && paidOn == 1 && freeOn == 0){
+				$('#backgroundMain').attr('src','img/2MP.png');
+				meterOn = 1;
+			}
+			//2PF
+			else if(twoHOn == 1 && meterOn == 0 && paidOn == 1 && freeOn == 1){
+				$('#backgroundMain').attr('src','img/2MPF.png');
+				meterOn = 1;
+			}
+			//2M
+			else if(twoHOn == 1 && meterOn == 1 && paidOn == 0 && freeOn == 0){
+				$('#backgroundMain').attr('src','img/2.png');
+				meterOn = 0;
+			}
+			//2MF
+			else if(twoHOn == 1 && meterOn == 1 && paidOn == 0 && freeOn == 1){
+				$('#backgroundMain').attr('src','img/2F.png');
+				meterOn = 0;
+			}
+			//2MP
+			else if(twoHOn == 1 && meterOn == 1 && paidOn == 1 && freeOn == 0){
+				$('#backgroundMain').attr('src','img/2P.png');
+				meterOn = 0;
+			}
+			//2MPF
+			else if(twoHOn == 1 && meterOn == 1 && paidOn == 1 && freeOn == 1){
+				$('#backgroundMain').attr('src','img/2PF.png');
+				meterOn = 0;
+			}
+			
+		});
+		
+		
+		//Paid is clicked
+		$('#filterButtonPaid').click(function(){
+			//emptyMap
+			if(twoHOn == 0 && meterOn == 0 && paidOn == 0 && freeOn == 0){
+				$('#backgroundMain').attr('src','img/P.png');
+				paidOn = 1;
+			}
+			//F
+			else if(twoHOn == 0 && meterOn == 0 && paidOn == 0 && freeOn == 1){
+				$('#backgroundMain').attr('src','img/PF.png');
+				paidOn = 1;
+			}
+			//P
+			else if(twoHOn == 0 && meterOn == 0 && paidOn == 1 && freeOn == 0){
+				$('#backgroundMain').attr('src','img/emptyMap.png');
+				paidOn = 0;
+			}
+			//PF
+			else if(twoHOn == 0 && meterOn == 0 && paidOn == 1 && freeOn == 1){
+				$('#backgroundMain').attr('src','img/F.png');
+				paidOn = 0;
+			}
+			//M
+			else if(twoHOn == 0 && meterOn == 1 && paidOn == 0 && freeOn == 0){
+				$('#backgroundMain').attr('src','img/MP.png');
+				paidOn = 1;
+			}
+			//MF
+			else if(twoHOn == 0 && meterOn == 1 && paidOn == 0 && freeOn == 1){
+				$('#backgroundMain').attr('src','img/MPF.png');
+				paidOn = 1;
+			}
+			//MP
+			else if(twoHOn == 0 && meterOn == 1 && paidOn == 1 && freeOn == 0){
+				$('#backgroundMain').attr('src','img/M.png');
+				paidOn = 0;
+			}
+			//MPF
+			else if(twoHOn == 0 && meterOn == 1 && paidOn == 1 && freeOn == 1){
+				$('#backgroundMain').attr('src','img/MF.png');
+				paidOn = 0;
+			}
+			//2
+			else if(twoHOn == 1 && meterOn == 0 && paidOn == 0 && freeOn == 0){
+				$('#backgroundMain').attr('src','img/2P.png');
+				paidOn = 1;
+			}
+			//2F
+			else if(twoHOn == 1 && meterOn == 0 && paidOn == 0 && freeOn == 1){
+				$('#backgroundMain').attr('src','img/2PF.png');
+				paidOn = 1;
+			}
+			//2P
+			else if(twoHOn == 1 && meterOn == 0 && paidOn == 1 && freeOn == 0){
+				$('#backgroundMain').attr('src','img/2.png');
+				paidOn = 0;
+			}
+			//2PF
+			else if(twoHOn == 1 && meterOn == 0 && paidOn == 1 && freeOn == 1){
+				$('#backgroundMain').attr('src','img/2F.png');
+				paidOn = 0;
+			}
+			//2M
+			else if(twoHOn == 1 && meterOn == 1 && paidOn == 0 && freeOn == 0){
+				$('#backgroundMain').attr('src','img/2MP.png');
+				paidOn = 1;
+			}
+			//2MF
+			else if(twoHOn == 1 && meterOn == 1 && paidOn == 0 && freeOn == 1){
+				$('#backgroundMain').attr('src','img/2MPF.png');
+				paidOn = 1;
+			}
+			//2MP
+			else if(twoHOn == 1 && meterOn == 1 && paidOn == 1 && freeOn == 0){
+				$('#backgroundMain').attr('src','img/2m.png');
+				paidOn = 0;
+			}
+			//2MPF
+			else if(twoHOn == 1 && meterOn == 1 && paidOn == 1 && freeOn == 1){
+				$('#backgroundMain').attr('src','img/2MF.png');
+				paidOn = 0;
+			}
+			
 		});
 		
 		

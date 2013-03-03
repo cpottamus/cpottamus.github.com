@@ -89,8 +89,8 @@ body #page #filterParking{
         linear,
         left top,
         left bottom,
-        color-stop(0, #A7A7A7),
-        color-stop(0.51, #E4E4E4)
+        color-stop(0, #520063),
+        color-stop(1, #AC7EAF)
     );
     top: 44%;
     position: absolute;
@@ -104,11 +104,43 @@ body #page #filterParking #returnFilter{
         left top,
         left bottom,
         color-stop(0, #000000),
-        color-stop(0.51, #BBBBBB));
+        color-stop(1, #BBBBBB));
         width: 0%;
         height: 0%;
-        left: 90%;
+        left: 96%;
         position: relative;
+}
+
+body #page #filterParking #filterButtonFree{
+    width: 0%;
+    height: 25%;
+    top: 0%;
+    display: block;
+    position: absolute;
+}
+
+body #page #filterParking #filterButton2h{
+    width: 0%;
+    height: 25%;
+    top: 25%;
+    display: block;
+    position: absolute;
+}
+
+body #page #filterParking #filterButtonMeter{
+    width: 0%;
+    height: 25%;
+    top: 50%;
+    display: block;
+    position: absolute;
+}
+
+body #page #filterParking #filterButtonPaid{
+    width: 0%;
+    height: 25%;
+    top: 75%;
+    display: block;
+    position: absolute;
 }
 
 body #page #filterTime{
@@ -119,8 +151,8 @@ body #page #filterTime{
         linear,
         left top,
         left bottom,
-        color-stop(0, #A7A7A7),
-        color-stop(0.51, #E4E4E4)
+        color-stop(0, #520063),
+        color-stop(1, #AC7EAF)
     );
     top: 44%;
     position: absolute;
@@ -134,7 +166,7 @@ body #page #filterTime #returnTime{
         left top,
         left bottom,
         color-stop(0, #000000),
-        color-stop(0.51, #BBBBBB));
+        color-stop(1, #BBBBBB));
         width: 0%;
         left: 0%;
         height: 0%;
@@ -147,8 +179,8 @@ body #page #parkingBar{
         linear,
         left top,
         left bottom,
-        color-stop(0, #A7A7A7),
-        color-stop(0.51, #E4E4E4)
+        color-stop(0, #520063),
+        color-stop(1, #AC7EAF)
     );
     top: 94%;
     position: absolute;
@@ -162,7 +194,7 @@ body #page #parkingBar #returnBar{
         left top,
         left bottom,
         color-stop(0, #000000),
-        color-stop(0.51, #BBBBBB));
+        color-stop(1, #BBBBBB));
         width: 0%;
         height: 0%;
 }
