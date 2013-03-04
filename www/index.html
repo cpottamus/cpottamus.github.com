@@ -27,10 +27,10 @@
 		
 	<!-- Make the images for the buttons for filter list, have jquery change the image source when clicked, change the jquery image source with it-->
 	
-	<img src='img/filterButtonFree.png' id='filterButtonFree'>
-	<img src='img/filterButton2h.png' id='filterButton2h'>
-	<img src='img/filterButtonMeter.png' id='filterButtonMeter'>
-	<img src='img/filterButtonPaid.png' id='filterButtonPaid'>
+	<img src='img/filterButtonFree3.png' id='filterButtonFree'>
+	<img src='img/filterButton2h3.png' id='filterButton2h'>
+	<img src='img/filterButtonMeter3.png' id='filterButtonMeter'>
+	<img src='img/filterButtonPaid3.png' id='filterButtonPaid'>
 	
 	</div>
 	
@@ -280,6 +280,43 @@
 		twoHOn = 0,
 		meterOn = 0,
 		paidOn = 0;
+		
+
+		$('#filterButtonFree').mouseup(function(){
+			if(freeOn == 1)
+				{$('#filterButtonFree').attr('src','img/filterButtonFree3.png');}
+			else { $('#filterButtonFree').attr('src','img/filterButtonFree.png');}
+		});
+		$('#filterButtonFree').mousedown(function(){
+			$('#filterButtonFree').attr('src','img/filterButtonFree2.png');
+		});
+
+		$('#filterButton2h').mouseup(function(){
+			if(twoHOn == 1)
+				{$('#filterButton2h').attr('src','img/filterButton2h3.png');}
+			else { $('#filterButton2h').attr('src','img/filterButton2h.png');}
+		});
+		$('#filterButton2h').mousedown(function(){
+			$('#filterButton2h').attr('src','img/filterButton2h2.png');
+		});
+		
+		$('#filterButtonMeter').mouseup(function(){
+			if(meterOn == 1)
+				{$('#filterButtonMeter').attr('src','img/filterButtonMeter3.png');}
+			else { $('#filterButtonMeter').attr('src','img/filterButtonMeter.png');}
+		});
+		$('#filterButtonMeter').mousedown(function(){
+			$('#filterButtonMeter').attr('src','img/filterButtonMeter2.png');
+		});
+		
+		$('#filterButtonPaid').mouseup(function(){
+			if(paidOn == 1)
+				{$('#filterButtonPaid').attr('src','img/filterButtonPaid3.png');}
+			else { $('#filterButtonPaid').attr('src','img/filterButtonpaid.png');}
+		});
+		$('#filterButtonPaid').mousedown(function(){
+			$('#filterButtonPaid').attr('src','img/filterButtonPaid2.png');
+		});
 		
 		//Free clicked
 		$('#filterButtonFree').click(function(){
