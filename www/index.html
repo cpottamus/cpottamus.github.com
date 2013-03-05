@@ -18,13 +18,14 @@
 	
 });-->
 	<img src='img/emptyMap.png' id='backgroundMain'>
+	<img src='img/currentLoc.png' id='currentLocation'>
 	
 	
 	<!-- make the filter parking div and style it-->
 	<div id="filterParking">
 		<div id="returnFilter"></div>
 		
-		
+	<img src='img/filterIcon.png' id='filterIcon'>
 	<!-- Make the images for the buttons for filter list, have jquery change the image source when clicked, change the jquery image source with it-->
 	
 	<img src='img/filterButtonFree3.png' id='filterButtonFree'>
@@ -36,6 +37,8 @@
 	
 	<!-- make the time list div and style it-->
 	<div id="filterTime">
+		
+		<img src='img/clockIcon.png' id='clockIcon'>
 		<div id="returnTime"></div>
 		
 	<!-- what code should go in here to make timing work? -->
@@ -43,7 +46,7 @@
 	</div>
 	
 	<!-- make the parkMe section -->
-	<div id="parkingBar">
+	<div id="parkingBar">Remember My Car?
 		<div id="returnBar">
 			<!--Put Down Arrow Here-->
 		</div>
@@ -78,22 +81,9 @@
 
 
     <div data-role="content" class="content">    
-        <input type="search" name="search" id="search-basic" value="" />        
+        <input type="search" name="search" id="search-basic" value="" />
+	<img src='img/magGlass.png' id='magGlass'>
     </div><!-- /content -->
-
-	<!-- Search bar functionality -->
-	<div id="searchBar">
-		
-	<!-- search bar should be a stylized html input bar
-	-tag template: <input id="searchInput" name="subject" size="35" type="text" value="" />
-	
-	-should have jquery changing background image to linear gradient screen (possibly just remove the map img?)
-	-should have jquery adding the button images and controlling their pressed state.
-		
-	-should have img tags for the X and the magnifying glass
-	-tag: <img id="magGlass" src='img/magGlass.png'>
-	-->
-	</div>
 	
 	
 	<script type='text/javascript' charset='utf-8'>
@@ -107,8 +97,9 @@
 			if(parkBarClicked == 0)
 			{
 				parkBarClicked = 1;
-				$('#parkingBar').animate({height: '32%', top: '68%'}, 400);
+				$('#parkingBar').animate({height: '32%', top: '69%'}, 400);
 				$('#backgroundMain').animate({bottom: '26%'}, 400);
+				$('#currentLocation').animate({bottom: '+=26%'}, 400);
 				$('#filterTime').animate({top: '-=26%'}, 400);
 				$('#filterParking').animate({top: '-=26%'}, 400);
 					
@@ -137,27 +128,30 @@
 			$('#returnBar').fadeOut(200, function(){ $('#returnBar').css(cssObj1)});
 			//$('#filterParking').fadeIn('800').css(cssObj)};
 			//Animate the bar down
-			$('#parkingBar').animate({height: '6%', top: '94%'}, 400);
+			$('#parkingBar').animate({height: '6%', top: '95%'}, 400);
 			$('#backgroundMain').animate({bottom: '0%'}, 400);
+			$('#currentLocation').animate({bottom: '-=26%'}, 400);
 			$('#filterTime').animate({top: '+=26%'}, 400);
 			$('#filterParking').animate({top: '+=26%'}, 400);
 		});
 		
 		
-		//Expand Parking Filter
+		//Expand Map Filter
 		$('#filterParking').click(function(event){
 
 			if(filterClicked == 0 && parkBarClicked == 0)
 			{
 				filterClicked = 1;
 				$('#filterParking').animate({'left' : '-40%'}, 200, function(){
-				$('#filterParking').css(cssObj2)});
+				$('#filterParking').css(cssObj2);
+				$('#filterIcon').css('visibility','hidden');});
+				
 				
 				$('#filterButtonFree').animate({'width' : '96%'}, 200);
 				$('#filterButton2h').animate({'width' : '96%'}, 200);
 				$('#filterButtonMeter').animate({'width' : '96%'}, 200);
 				$('#filterButtonPaid').animate({'width' : '96%'}, 200);
-				//$('#filterButtonMeter')
+				
 				
 				$('#filterParking').animate({'left' : '0%'}, 400);
 				cssObj2 = {
@@ -166,14 +160,14 @@
 					'top' : '30%'
 					};
 				cssObj3 = {
-					'width' : '4%',
+					'width' : '5%',
 					'height' : '100%',
 				}
-				$('#returnFilter').delay(200).fadeIn(200, function(){ $('#returnFilter').css(cssObj3)});
+				$('#returnFilter').fadeIn(200, function(){ $('#returnFilter').css(cssObj3)});
 			}
 		});
 		
-		//Return Parking Filter
+		//Return Map Filter
 		$('#returnFilter').click(function(event){
 			
 			event.stopPropagation();	
@@ -197,6 +191,7 @@
 				$('#filterButtonMeter').animate({'width' : '0%'}, 400);
 				$('#filterButtonPaid').animate({'width' : '0%'}, 400);
 				$('#filterParking').css(cssObj4)});
+				$('#filterIcon').css('visibility','visible');
 			
 			$('#filterParking').animate({'left' : '0%'}, 400);
 
@@ -211,7 +206,8 @@
 			{
 				timeClicked = 1;
 				$('#filterTime').animate({'left' : '100%'}, 200, function(){
-				$('#filterTime').css(cssObj6);});
+				$('#filterTime').css(cssObj6);
+				$('#clockIcon').css('visibility','hidden');});
 				$('#filterTime').animate({'left' : '60%'}, 400);
 				cssObj6 = {
 					'width' : '40%',
@@ -221,7 +217,7 @@
 					'width' : '10%',
 					'height' : '100%',
 				}
-				$('#returnTime').delay(200).fadeIn(200, function(){ $('#returnTime').css(cssObj7)});
+				$('#returnTime').fadeIn(200, function(){ $('#returnTime').css(cssObj7)});
 				
 	
 				//Here is where we show the images
@@ -247,7 +243,8 @@
 			timeClicked = 0;
 			$('#returnTime').fadeOut(200, function(){ $('#returnTime').css(cssObj9)});
 			$('#filterTime').animate({'left' : '100%'}, 200, function(){
-			$('#filterTime').css(cssObj8)});
+			$('#filterTime').css(cssObj8);
+			$('#clockIcon').css('visibility','visible');});
 			$('#filterTime').animate({'left' : '90%'}, 400);
 
 	
@@ -260,6 +257,7 @@
 		$('#search-basic').focusin(function()
 		{
 			$('#backgroundMain').animate({'right' : '+=100%'}, 'slow');
+			$('#currentLocation').animate({'left' : '-=100%'}, 'slow');
 			$('#filterParking').animate({'left' : '-=100%'}, 'slow');
 			$('#filterTime').animate({'left' : '-=100%'}, 'slow');
 			$('#parkingBar').animate({'right' : '+=100%'}, 'slow');
@@ -267,6 +265,7 @@
 		$('#search-basic').focusout(function()
 		{
 			$('#backgroundMain').animate({'right' : '-=100%'}, 'slow');
+			$('#currentLocation').animate({'left' : '+=100%'}, 'slow');
 			$('#filterParking').animate({'left' : '+=100%'}, 'slow');
 			$('#filterTime').animate({'left' : '+=100%'}, 'slow');
 			$('#parkingBar').animate({'right' : '-=100%'}, 'slow');
