@@ -8,8 +8,6 @@
 	<link rel="stylesheet" href="http://code.jquery.com/mobile/1.0.1/jquery.mobile-1.0.1.min.css" />
 	<script src="http://code.jquery.com/jquery-1.6.4.min.js"></script>
 	<script src="http://code.jquery.com/mobile/1.0.1/jquery.mobile-1.0.1.min.js"></script>
-	<link href="css/mobiscroll.custom-2.4.4.min.css" rel="stylesheet" type="text/css" />
-	<script src="js/mobiscroll.custom-2.4.4.min.js" type="text/javascript"></script>
 	
 	<title>PurplePark</title>
 </head>
@@ -21,11 +19,38 @@
 });-->
 	<img src='img/emptyMap.png' id='backgroundMain'>
 	<img src='img/currentLoc.png' id='currentLocation'>
+	<img src='img/parkedCar.png' id='parkedCar'>
+	<img src='img/searchedLoc.png' id='searchedLocation'>
+	<img src='img/timer.png' id='timer'>
 	
-	
+	<div id="searchScreen">
+		<div id="searchBox">
+			
+			<div id=shadeDiv><div id="searchOption1">
+				<img src='img/magGlass.png' id='searchGlass'>
+				<h1>Whole Foods Market</h1>
+				<h2>Chicago Avenue, Evanston, IL</h2>
+			</div></div>
+			<div id=shadeDiv style='top: 12%;'><div id="searchOption1">
+				<img src='img/magGlass.png' id='searchGlass'>
+				<h1>Whole Foods Market</h1>
+				<h2>North Kingsbury Street, Chicago, IL</h2>
+			</div></div>
+			<div id=shadeDiv style='top: 24%;'><div id="searchOption1">
+				<img src='img/magGlass.png' id='searchGlass'>
+				<h1>Whole Foods Market</h1>
+				<h2>West Huron Street, Chicago, IL</h2>
+			</div></div>
+			<div id=shadeDiv  style='top: 36%;'><div id="searchOption1">
+				<img src='img/magGlass.png' id='searchGlass'>
+				<h1>Whole Foods Market</h1>
+				<h2>North Halsted Street, Chicago, IL</h2>
+			</div></div>
+		</div>
+	</div>
 	<!-- make the filter parking div and style it-->
 	<div id="filterParking">
-		<div id="returnFilter"></div>
+		<div id="returnFilter"><img src='img/clickBar.png' id='clickBar'></div>
 		
 	<img src='img/filterIcon.png' id='filterIcon'>
 	<!-- Make the images for the buttons for filter list, have jquery change the image source when clicked, change the jquery image source with it-->
@@ -40,17 +65,26 @@
 	<!-- make the time list div and style it-->
 	<div id="filterTime">
 		
+		<img src='img/timeFilter1.png' id='timeFilter1'>
+		<img src='img/timeFilter2.png' id='timeFilter2'>
+		
 		<img src='img/clockIcon.png' id='clockIcon'>
-		<div id="returnTime"></div>
+		<div id="returnTime"><img src='img/clickBar2.png' id='clickBar2'></div>
 		<h1 id="timeText">Time Parked</h1>
-		<input id="timeScroll" name="timeScroll" />
 	<!-- what code should go in here to make timing work? -->
 		
 	</div>
 	
 	<!-- make the parkMe section -->
 	<div id="parkingBar"> <h1 id="parkText">Remember My Car</h1>
+		
+		<img src='img/findMyCar.png' id='rememberButton'>
+		<img src='img/clearSpot.png' id='clearSpot'>
+		<div id='parkRemind'><img src='img/parkRemind.png' id='remindImg'>
+		<img src='img/addReminder.png' id='addReminder'></div>
+		
 		<div id="returnBar">
+			<img src='img/clickBar3.png' id='clickBar3'>
 			<!--Put Down Arrow Here-->
 		</div>
 		
@@ -94,30 +128,61 @@
 				
 		
 		var parkBarClicked = 0,
+		active = 0,
 		filterClicked = 0,
 		timeClicked = 0,
 		scrollWidth,
 		scrollHeight;
 		
+		var remember = 1;
+		
 		//Expand Parking section		
 		$('#parkingBar').click(function(event){
-			if(parkBarClicked == 0)
+			if(parkBarClicked == 0 && active){
+				e.preventDefault();
+			}
+			else if(parkBarClicked == 0 && !active)
 			{
 				parkBarClicked = 1;
-				$('#parkingBar').animate({height: '32%', top: '69%'}, 400);
+				$('#parkingBar').animate({height: '32%', top: '69%'}, 400, function(){
+					});
 				$('#backgroundMain').animate({bottom: '26%'}, 400);
 				$('#currentLocation').animate({bottom: '+=26%'}, 400);
+				$('#parkedCar').animate({bottom: '+=26%'}, 400);
+				$('#searchedLocation').animate({bottom: '+=26%'}, 400);
+				$('#timer').animate({bottom: '+=26%'}, 400);
 				$('#filterTime').animate({top: '-=26%'}, 400);
 				$('#filterParking').animate({top: '-=26%'}, 400);
-				$('#parkText').fadeOut(200, function(){ $('parkText').css('visibility', 'hidden');});
+				$('#parkText').fadeOut(200, function(){ $('#parkText').css('visibility', 'hidden');});
 				
 				//Create the top div
 				cssObj = {
 					'width' : '100%',
-					'height' : '15%'
+					'height' : '5%'
 				}
-				$('#returnBar').fadeIn(200, function(){ $('#returnBar').css(cssObj)});
-				//Here is where we show the images
+				$('#returnBar').fadeIn(200, function(){ $('#returnBar').css(cssObj)
+					if(remember == 1){
+						$('#parkRemind').fadeIn(200, function(){$('#parkRemind').css('visibility','visible');});
+						$('#rememberButton').attr('src','img/rememberMyCar.png');
+						$('#rememberButton').fadeIn(200, function(){$('#rememberButton').css('visibility','visible');});
+					}else if(remember == 0){
+						$('#clearSpot').fadeIn(200, function(){$('#clearSpot').css('visibility','visible');});
+						$('#rememberButton').attr('src','img/FindMyCar.png');
+						$('#rememberButton').fadeIn(200, function(){$('#rememberButton').css('visibility','visible');});
+					}});
+				
+				/*if(remember == 1){
+					$('#addReminder').fadeIn(200, function(){$('#addReminder').css('visibility','visible');});
+					
+					$('#parkRemind').fadeIn(200, function(){$('#parkRemind').css('visibility','visible');});
+					//Make parkRemind a Div the splits its height between images that are added each time addReminder is pressed
+					
+				}
+				else if(remember == 0){
+					$('#clearSpot').fadeIn(200, function(){$('#clearSpot').css('visibility','visible');});
+					
+				}*/
+				
 			}			
 		});
 		
@@ -133,17 +198,151 @@
 				'width' : '0%',
 				'height' : '0%'
 			}
-			$('#returnBar').fadeOut(200, function(){ $('#returnBar').css(cssObj1)});
+			$('#returnBar').fadeOut(0, function(){ $('#returnBar').css(cssObj1)
+						$('#parkText').fadeIn(200, function(){ $('#parkText').css('visibility', 'visible').text("Find My Car");})});
 			//$('#filterParking').fadeIn('800').css(cssObj)};
 			//Animate the bar down
 			
 			$('#parkingBar').animate({height: '6%', top: '95%'}, 400);
 			$('#backgroundMain').animate({bottom: '0%'}, 400, function(){
-				$('#parkText').fadeIn(100, function(){ $('parkText').css('visibility', 'visible');});});
+				;});
 			$('#currentLocation').animate({bottom: '-=26%'}, 400);
+			$('#parkedCar').animate({bottom: '-=26%'}, 400);
+			$('#searchedLocation').animate({bottom: '-=26%'}, 400);
+			$('#timer').animate({bottom: '-=26%'}, 400);
 			$('#filterTime').animate({top: '+=26%'}, 400);
 			$('#filterParking').animate({top: '+=26%'}, 400);
+			
+			$('#parkRemind').fadeOut(400, function(){$('#parkRemind').css('visibility','hidden');});
+			$('#rememberButton').fadeOut(400, function(){$('#rememberButton').css('visibility','hidden');});
+			$('#clearSpot').fadeOut(400, function(){$('#clearSpot').css('visibility', 'hidden');});
 		});
+		
+		$('#rememberButton').mouseup(function(event){
+			
+			if(remember ==1){
+				remember = 0;
+				event.stopPropagation();
+				active = true;
+							//remove the bottom Div
+				parkBarClicked = 0;
+				cssObj1 = {
+					'width' : '0%',
+					'height' : '0%'
+				}
+				$('#returnBar').fadeOut(0, function(){
+					$('#returnBar').css(cssObj1)
+						$('#parkText').fadeIn(200, function(){ $('#parkText').css('visibility', 'visible').text("Find My Car");})});
+				//$('#filterParking').fadeIn('800').css(cssObj)};
+				//Animate the bar down
+				$('#parkingBar').animate({height: '6%', top: '95%'}, 400);
+				$('#parkRemind').fadeOut(400, function(){$('#parkRemind').css('visibility','hidden');});
+				$('#backgroundMain').animate({bottom: '0%'}, 400, function(){
+					$('#parkText').fadeIn(0, function(){ $('parkText').css('visibility', 'visible');});
+					active = false;
+					
+					
+					
+					
+					
+					});
+				
+				
+				$('#currentLocation').animate({bottom: '-=26%'}, 400);
+				$('#parkedCar').css('visibility','visible');
+				$('#timer').css('visibility','visible');
+				$('#parkedCar').animate({bottom: '-=26%'}, 400);
+				$('#searchedLocation').animate({bottom: '-=26%'}, 400);
+				$('#timer').animate({bottom: '-=26%'}, 400);
+				$('#filterTime').animate({top: '+=26%'}, 400);
+				$('#filterParking').animate({top: '+=26%'}, 400);
+				$('#rememberButton').fadeOut(400, function(){$('#rememberButton').css('visibility','hidden');});
+			}
+			else if( remember == 0){ //The findMyCar event
+				event.stopPropagation();
+				active = true;
+							//remove the bottom Div
+				parkBarClicked = 0;
+				cssObj1 = {
+					'width' : '0%',
+					'height' : '0%'
+				}
+				$('#returnBar').fadeOut(0, function(){
+					$('#returnBar').css(cssObj1);
+					$('#parkText').fadeIn(200, function(){ $('#parkText').css('visibility', 'visible').text("Find My Car");})
+				});
+				//$('#filterParking').fadeIn('800').css(cssObj)};
+				//Animate the bar down
+				$('#parkingBar').animate({height: '6%', top: '95%'}, 400);
+				$('#parkRemind').fadeOut(400, function(){$('#parkRemind').css('visibility','hidden');});
+				$('#backgroundMain').animate({bottom: '0%'}, 400, function(){
+
+					active = false;});
+				
+				$('#currentLocation').animate({bottom: '-=26%'}, 400);
+				$('#clearSpot').fadeOut(400, function(){$('#clearSpot').css('visibility', 'hidden');});
+				$('#parkedCar').css('visibility','visible');
+				$('#parkedCar').animate({bottom: '-=26%'}, 400);
+				$('#searchedLocation').animate({bottom: '-=26%'}, 400);
+				$('#timer').animate({bottom: '-=26%'}, 400);
+				$('#filterTime').animate({top: '+=26%'}, 400);
+				$('#filterParking').animate({top: '+=26%'}, 400);
+				$('#rememberButton').fadeOut(400, function(){$('#rememberButton').css('visibility','hidden');});
+			
+			}
+			
+			
+			
+		});
+		
+		$('#rememberButton').mousedown(function(event){
+			
+			if(remember ==1){
+				
+				event.stopPropagation();
+				$('#rememberButton').attr('src','img/rememberMyCar2.png');
+			}
+			else if( remember == 0){ //The findMyCar event
+				event.stopPropagation();
+				$('#rememberButton').attr('src','img/findMyCar2.png');
+			};
+			
+		});
+		
+		$('#clearSpot').mouseup(function(event){
+			event.stopPropagation();
+			active = true;
+			parkBarClicked = 0;
+			remember = 1;
+			cssObj1 = {
+				'width' : '0%',
+				'height' : '0%'
+			}
+			$('#returnBar').fadeOut(0, function(){
+					$('#returnBar').css(cssObj1)
+						$('#parkText').fadeIn(200, function(){ $('#parkText').css('visibility', 'visible').text("Find My Car");})});
+		
+			$('#parkingBar').animate({height: '6%', top: '95%'}, 400);
+			$('#backgroundMain').animate({bottom: '0%'}, 400, function(){
+					$('#rememberButton').attr('src','img/rememberMyCar.png');
+					active = false;});
+			$('#currentLocation').animate({bottom: '-=26%'}, 400);
+			$('#clearSpot').fadeOut(400, function(){$('#clearSpot').css('visibility', 'hidden');});
+			$('#parkedCar').css('visibility','hidden');
+			$('#parkedCar').animate({bottom: '-=26%'}, 400);
+			$('#searchedLocation').animate({bottom: '-=26%'}, 400);
+			$('#timer').css('visibility', 'hidden');
+			$('#timer').animate({bottom: '-=26%'}, 400);
+			$('#filterTime').animate({top: '+=26%'}, 400);
+			$('#filterParking').animate({top: '+=26%'}, 400);
+			$('#rememberButton').fadeOut(400, function(){$('#rememberButton').css('visibility','hidden');
+			});
+			
+			
+			
+		});
+		
+		
 		
 		
 		//Expand Map Filter
@@ -157,10 +356,10 @@
 				$('#filterIcon').css('visibility','hidden');});
 				
 				
-				$('#filterButtonFree').animate({'width' : '96%'}, 200);
-				$('#filterButton2h').animate({'width' : '96%'}, 200);
-				$('#filterButtonMeter').animate({'width' : '96%'}, 200);
-				$('#filterButtonPaid').animate({'width' : '96%'}, 200);
+				$('#filterButtonFree').animate({'width' : '94%'}, 200);
+				$('#filterButton2h').animate({'width' : '94%'}, 200);
+				$('#filterButtonMeter').animate({'width' : '94%'}, 200);
+				$('#filterButtonPaid').animate({'width' : '94%'}, 200);
 				
 				
 				$('#filterParking').animate({'left' : '0%'}, 400);
@@ -174,6 +373,7 @@
 					'height' : '100%',
 				}
 				$('#returnFilter').fadeIn(200, function(){ $('#returnFilter').css(cssObj3)});
+				
 			}
 		});
 		
@@ -219,31 +419,14 @@
 				$('#filterTime').css(cssObj6);
 				$('#clockIcon').css('visibility','hidden');
 				$('#timeText').css('visibility','visible');
+				$('#timeFilter1').css('visibility','visible');
+				$('#timeFilter2').css('visibility','visible');
 				
 				$(function(){
 				
 				scrollWidth = $('#filterTime').width()*.8;
 				scrollHeight = $('#filterTime').height()*.2;
-				
-				$("#timeScroll").mobiscroll().date({
-					theme: 'android-ics light',
-					display: 'inline',
-					rows: '3',
-					//Mobile Values
-					width: 10,
-					height: 15,
-				
-					mode: 'scroller',
-					dateOrder: 'D M d',
-					dateFormat: 'D/M/d',
-					dayNames: ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'],
-					dayNamesShort: ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'],
-					monthNames: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
-					monthNamesShort: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
-					timeFormat: '',
-					timeWheels: '',
-			
-			});
+
 		});
 			
 				
@@ -254,7 +437,7 @@
 					'height' : '40%',
 					'top' : '30%'};
 				cssObj7 = {
-					'width' : '10%',
+					'width' : '6%',
 					'height' : '100%',
 				}
 				$('#returnTime').fadeIn(200, function(){ $('#returnTime').css(cssObj7)});
@@ -286,8 +469,8 @@
 			$('#filterTime').css(cssObj8);
 			$('#clockIcon').css('visibility','visible');
 			$('#timeText').css('visibility','hidden');
-			$(function(){
-				$('#timeScroll').mobiscroll('hide');});
+			$('#timeFilter1').css('visibility','hidden');
+			$('#timeFilter2').css('visibility','hidden');
 			});
 			$('#filterTime').animate({'left' : '90%'}, 400);
 			
@@ -296,26 +479,59 @@
 		});
 		
 		
+		
+		
 		//Change search Screen
 		//if($('.ui-input-search ui-shadow-inset ui-btn-corner-all ui-btn-shadow ui-icon-searchfield ui-body-c ui-focus')[0]){
-		$(document).ready(function(){
+		var addressClicked = false;
+	$(document).ready(function(){
 		$('#search-basic').focusin(function()
 		{
-			$('#backgroundMain').animate({'right' : '+=100%'}, 'slow');
+			$('#backgroundMain').animate({'right' : '+=100%'}, 'slow', function(){
+				$('#searchScreen').css('visibility','visible');});
 			$('#currentLocation').animate({'left' : '-=100%'}, 'slow');
+			$('#parkedCar').animate({'left' : '-=100%'}, 'slow');
 			$('#filterParking').animate({'left' : '-=100%'}, 'slow');
 			$('#filterTime').animate({'left' : '-=100%'}, 'slow');
+			$('#timer').animate({'left' : '-=100%'}, 'slow');
 			$('#parkingBar').animate({'right' : '+=100%'}, 'slow');
+			var cssObj = {'visibility' : 'hidden', 'left' : '-43%'}
+			$('#searchedLocation').css(cssObj);
+			
 		});	
-		$('#search-basic').focusout(function()
-		{
+		$('#search-basic').focusout(function(){
+			if(addressClicked == false){
 			$('#backgroundMain').animate({'right' : '-=100%'}, 'slow');
+			$('#searchScreen').css('visibility','hidden');
 			$('#currentLocation').animate({'left' : '+=100%'}, 'slow');
+			$('#parkedCar').animate({'left' : '+=100%'}, 'slow');
+			$('#timer').animate({'left' : '+=100%'}, 'slow');
 			$('#filterParking').animate({'left' : '+=100%'}, 'slow');
 			$('#filterTime').animate({'left' : '+=100%'}, 'slow');
-			$('#parkingBar').animate({'right' : '-=100%'}, 'slow');
+			$('#parkingBar').animate({'right' : '-=100%'}, 'slow');}
+			else { addressClicked = false;}
+
 		});
-		});
+		function bindOne() {
+		$('#shadeDiv').unbind('mousedown').one("mousedown", function(){
+					//$("#shadeDiv").css('background', 'rgba(172, 126, 175, .3)').delay(400);
+					addressClicked = true;
+					$('#backgroundMain').animate({'right' : '-=100%'}, 'slow');
+					$('#searchScreen').css('visibility','hidden');
+					$('#searchedLocation').css('visibility','visible');
+					$('#searchedLocation').animate({'left' : '+=100%'}, 'slow');
+					$('#currentLocation').animate({'left' : '+=100%'}, 'slow');
+					$('#parkedCar').animate({'left' : '+=100%'}, 'slow');
+					$('#filterParking').animate({'left' : '+=100%'}, 'slow');
+					$('#filterTime').animate({'left' : '+=100%'}, 'slow');
+					$('#parkingBar').animate({'right' : '-=100%'}, 'slow');
+		});}
+		
+		bindOne();
+		
+		$('#shadeDiv').on('mousedown', function(){bindOne();});	
+	});
+
 		
 		
 		//Map Changing with clicks.
@@ -325,41 +541,49 @@
 		meterOn = 0,
 		paidOn = 0;
 		
-
+		//Image changes.
 		$('#filterButtonFree').mouseup(function(){
 			if(freeOn == 1)
 				{$('#filterButtonFree').attr('src','img/filterButtonFree3.png');}
 			else { $('#filterButtonFree').attr('src','img/filterButtonFree.png');}
+			//$('#filterButtonFree').css('box-shadow','none');
 		});
 		$('#filterButtonFree').mousedown(function(){
-			$('#filterButtonFree').attr('src','img/filterButtonFree2.png');
+			//$('#filterButtonFree').attr('src','img/filterButtonFree2.png');
+			//$('#filterButtonFree').css('box-shadow','inset 0 0 10px #000000');
 		});
 
 		$('#filterButton2h').mouseup(function(){
 			if(twoHOn == 1)
 				{$('#filterButton2h').attr('src','img/filterButton2h3.png');}
 			else { $('#filterButton2h').attr('src','img/filterButton2h.png');}
+			//$('#filterButton2h').css('box-shadow','none');
 		});
 		$('#filterButton2h').mousedown(function(){
-			$('#filterButton2h').attr('src','img/filterButton2h2.png');
+			//$('#filterButton2h').attr('src','img/filterButton2h2.png');
+			//$('#filterButton2h').css('box-shadow','inset 0 0 10px #000000');
 		});
 		
 		$('#filterButtonMeter').mouseup(function(){
 			if(meterOn == 1)
 				{$('#filterButtonMeter').attr('src','img/filterButtonMeter3.png');}
 			else { $('#filterButtonMeter').attr('src','img/filterButtonMeter.png');}
+			//$('#filterButtonMeter').css('box-shadow','none');
 		});
 		$('#filterButtonMeter').mousedown(function(){
-			$('#filterButtonMeter').attr('src','img/filterButtonMeter2.png');
+			//$('#filterButtonMeter').attr('src','img/filterButtonMeter2.png');
+			//$('#filterButtonMeter').css('box-shadow','inset 0 0 10px #000000');
 		});
 		
 		$('#filterButtonPaid').mouseup(function(){
 			if(paidOn == 1)
 				{$('#filterButtonPaid').attr('src','img/filterButtonPaid3.png');}
 			else { $('#filterButtonPaid').attr('src','img/filterButtonPaid.png');}
+			//$('#filterButtonPaid').css('box-shadow','none');
 		});
 		$('#filterButtonPaid').mousedown(function(){
-			$('#filterButtonPaid').attr('src','img/filterButtonPaid2.png');
+			//$('#filterButtonPaid').attr('src','img/filterButtonPaid2.png');
+			//$('#filterButtonPaid').css('box-shadow','inset 0 0 10px #000000');
 		});
 		
 		//Free clicked

@@ -43,6 +43,7 @@ body {
     padding:0px;
     text-transform:uppercase;
     width:100%;
+    z-index: -1000;
   
 }
 
@@ -80,19 +81,49 @@ body {
     position: absolute;
     bottom: 0%;
     right: 0%;
+    z-index: 0;
 }
 
 body #page #currentLocation{
    width: 5%;
-   height: 5%;
+   height: 3.5%;
    z-index: 2;
    bottom: 50%;
    left: 50%;
    position: absolute;
 }
+body #page #parkedCar{
+   width: 9%;
+   height: 7%;
+   z-index: 2;
+   bottom: 52.2%;
+   left: 50%;
+   position: absolute;
+   visibility: hidden;
+}
+
+body #page #searchedLocation{
+   width: 9%;
+   height: 8%;
+   z-index: 0;
+   bottom: 45%;
+   left: -43%;
+   position: absolute;
+   visibility: hidden;
+}
+
+body #page #timer{
+   width: 18%;
+   height: 7%;
+   z-index: 2;
+   bottom: 7%;
+   left: 41%;
+   position: absolute;
+   visibility: hidden;
+}
 
 body #page #magGlass{
-    width: 7%;
+    width: 30px;
     height: 30px;
     position: fixed;
     z-index: 1;
@@ -108,7 +139,7 @@ body #page #filterParking{
         left top,
         left bottom,
         color-stop(0, #520063),
-        color-stop(1, #AC7EAF)
+        color-stop(1, #520063)
     );
     top: 44%;
     position: absolute;
@@ -129,18 +160,21 @@ body #page #filterParking #filterIcon{
 }
 
 body #page #filterParking #returnFilter{
-        background-image:-webkit-gradient(
-        linear,
-        left top,
-        left bottom,
-        color-stop(0, #000000),
-        color-stop(1, #BBBBBB));
+        /*background-image: url(../img/clickBar.png);*/
         width: 0%;
         height: 0%;
-        left: 96%;
-        position: relative;
+        left: 94%;
+        position: absolute;
         -webkit-border-bottom-right-radius: 5px;
         -webkit-border-top-right-radius: 5px;
+}
+
+body #page #filterParking #returnFilter #clickBar{
+    width: 100%;
+    height: 20%;
+    left: 20%;
+    top: 40%;
+    position: relative;
 }
 
 body #page #filterParking #filterButtonFree{
@@ -149,6 +183,7 @@ body #page #filterParking #filterButtonFree{
     top: 0%;
     display: block;
     position: absolute;
+    
 }
 
 body #page #filterParking #filterButton2h{
@@ -157,6 +192,7 @@ body #page #filterParking #filterButton2h{
     top: 25%;
     display: block;
     position: absolute;
+    
 }
 
 body #page #filterParking #filterButtonMeter{
@@ -165,6 +201,7 @@ body #page #filterParking #filterButtonMeter{
     top: 50%;
     display: block;
     position: absolute;
+    
 }
 
 body #page #filterParking #filterButtonPaid{
@@ -173,7 +210,21 @@ body #page #filterParking #filterButtonPaid{
     top: 75%;
     display: block;
     position: absolute;
+    
 }
+
+/*body #page #filterParking #filterButtonFree:hover{
+    box-shadow:inset 0 0 10px #000000;
+}
+body #page #filterParking #filterButton2h:hover{
+    box-shadow:inset 0 0 10px #000000;
+}
+body #page #filterParking #filterButtonMeter:hover{
+    box-shadow:inset 0 0 10px #000000;
+}
+body #page #filterParking #filterButtonPaid:hover{
+    box-shadow:inset 0 0 10px #000000;
+}*/
 
 body #page #filterTime{
     width: 10%;
@@ -184,7 +235,7 @@ body #page #filterTime{
         left top,
         left bottom,
         color-stop(0, #520063),
-        color-stop(1, #AC7EAF)
+        color-stop(1, #520063) /* AC7EAF*/
     );
     top: 44%;
     position: absolute;
@@ -222,18 +273,38 @@ body #page #filterTime #timeText {
 
 
 body #page #filterTime #returnTime{
-        background-image:-webkit-gradient(
-        linear,
-        left top,
-        left bottom,
-        color-stop(0, #000000),
-        color-stop(1, #BBBBBB));
         width: 0%;
         left: 0%;
         height: 0%;
         -webkit-border-bottom-left-radius: 5px;
         -webkit-border-top-left-radius: 5px;
         position: absolute;
+}
+
+body #page #filterTime #returnTime #clickBar2{
+    width: 100%;
+    height: 20%;
+    left: 10%;
+    top: 40%;
+    position: relative;
+}
+
+body #page #filterTime #timeFilter1 {
+    width: 80%;
+    height: 30%;
+    left: 13%;
+    top: 13%;
+    position: absolute;
+    visibility: hidden;
+}
+
+body #page #filterTime #timeFilter2 {
+    width: 80%;
+    height: 45%;
+    left: 13%;
+    top: 47%;
+    position: absolute;
+    visibility: hidden;
 }
 
 body #page #filterTime #timeScroll {
@@ -249,7 +320,7 @@ body #page #parkingBar{
         left top,
         left bottom,
         color-stop(0, #520063),
-        color-stop(1, #AC7EAF)
+        color-stop(1, #520063)
     );
     top: 95%;
     position: absolute;
@@ -273,18 +344,158 @@ body #page #parkingBar #parkText {
 }
 
 body #page #parkingBar #returnBar{
-        background-image:-webkit-gradient(
-        linear,
-        left top,
-        left bottom,
-        color-stop(0, #000000),
-        color-stop(1, #BBBBBB));
+
         width: 0%;
         height: 0%;
         -webkit-border-top-left-radius: 5px;
         -webkit-border-top-right-radius: 5px;
         position: absolute;
 }
+
+body #page #parkingBar #returnBar #clickBar3{
+    width: 10%;
+    height: 100%;
+    left: 45%;
+    top: 25%;
+    margin-top: 2px;
+    position: absolute;
+}
+
+body #page #parkingBar #rememberButton{
+    width: 75%;
+    height: 25%;
+    position: absolute;
+    left: 12.5%;
+    top: 70%;
+    visibility: hidden;
+    border-radius: 8px;
+    box-shadow: 1px 1px 2px #000000;
+}
+
+body #page #parkingBar #clearSpot{
+    width: 95%;
+    height: 35%;
+    position: absolute;
+    left: 2.5%;
+    top: 22.5%;
+    visibility: hidden;
+    border-radius: 8px;
+    box-shadow: 1px 1px 2px #000000;
+}
+
+body #page #parkingBar #parkRemind{
+    width: 80%;
+    height: 70%;
+    position: absolute;
+    left: 10%;
+    top: 2.5%;
+    visibility: hidden;
+    border-radius: 3px;
+}
+
+body #page #parkingBar #parkRemind #remindImg{
+    height: 50%;
+    width: 100%;
+    position: absolute;
+    visibility: inherit;
+    z-index: 2;
+    top: 25%;
+}
+
+body #page #parkingBar #parkRemind #addReminder{
+    width: 5%;
+    height: 10%;
+    position: absolute;
+    left: 0%;
+    top: 67%;
+    z-index: 2;
+    visibility: inherit;
+}
+
+
+body #page #searchScreen{
+    width: 100%;
+    border-top-color: #520063;
+    border-top: groove;
+    border-width: thin;
+    top: 10%;
+    height: 90%;
+    position: absolute;
+    visibility: hidden;
+}
+
+body #page #searchScreen #searchBox{
+    width: 95%;
+    height: 95%;
+    /*border-color: #520063;*/
+    box-shadow: 0px 0px 1px 1px #c2c3c1;
+    top: 2%;
+    left: 2.5%;
+    position: absolute;
+    visibility: inherit;
+    text-transform: none !important;
+    opacity: 1;
+}
+
+body #page #searchScreen #searchBox #shadeDiv #searchOption1 #searchGlass{
+    left: 2%;
+    position: absolute;
+    width: 33px;
+    height: 33px;
+    top: 22%;
+    z-index: 1;
+}
+
+body #page #searchScreen #searchBox #shadeDiv{
+    width: 100%;
+    height: 12%;
+    border-radius: 3px;
+    z-index: 3;
+}
+
+body #page #searchScreen #searchBox #shadeDiv:hover{
+    background: rgba(172, 126, 175, 0   .3);
+}
+
+body #page #searchScreen #searchBox #shadeDiv #searchOption1{
+    width: 95%;
+    height: 12%;
+    /*left: 2.5%;*/
+    margin-left: 2.5%;
+    margin-right: 2.5%;
+    border-bottom: groove;
+    border-bottom-width: thin;
+    border-bottom-color: #c2c3c1;
+    position: absolute;
+    visibility: inherit;
+    font-family:Century Gothic,arial,sans-serif !important;
+}
+
+body #page #searchScreen #searchBox #shadeDiv #searchOption1 h1{
+    font-size: 15px;
+    font-weight: lighter;
+    color: #000000;
+    left: 15%;
+    text-align: left;
+    line-height: 80%;
+    top: 30%;
+    position: absolute;
+    visibility: inherit;
+    
+}
+
+body #page #searchScreen #searchBox #shadeDiv #searchOption1 h2{
+    font-size: 12px;
+    font-weight: lighter;
+    color: #3e3e3e;
+    left: 15%;
+    top: 50%;
+    text-align: left;
+    line-height: 80%;
+    position: absolute;
+    visibility: inherit;
+}
+
 
 
 h1 {
@@ -337,7 +548,7 @@ h1 {
 }
     
 .content .ui-input-search{
-        padding:0 30px !important;
+        padding:0 35px !important;
         box-shadow: 1px 2px 4px 2px #B2A695;
 }
 
